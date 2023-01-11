@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import Offers from "./pages/Offers";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/forgot-password' element={<ForgotPassword />} />
         </Routes>
       </Router>
+      <Navbar />
     </>
   )
 }
