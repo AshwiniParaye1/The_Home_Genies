@@ -18,7 +18,12 @@ function SignIn() {
 
   const navigate = useNavigate();
 
-  const onChange = () => {}
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id] : e.target.value,
+    }))
+  }
 
   return (
     <>
@@ -48,6 +53,12 @@ function SignIn() {
               </button>
           </div>
         </form>
+
+        {/* google authorization */}
+
+        <Link to='/sign-up' className='registerLink' >
+          Sign Up Instead
+        </Link>
       </div>
     </>
   )
