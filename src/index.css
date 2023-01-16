@@ -222,6 +222,7 @@ button {
   color: #00cc66;
   font-weight: 600;
   text-align: right;
+  margin-right: 0.5rem;
 }
 
 .signInBar,
