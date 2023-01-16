@@ -53,7 +53,7 @@ function SignUp() {
       //adding users to db
       const formDataCopy = { ...formData }
       delete formDataCopy.password
-      formDataCopy.timestamo = serverTimestamp()
+      formDataCopy.timestamp = serverTimestamp()
 
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
