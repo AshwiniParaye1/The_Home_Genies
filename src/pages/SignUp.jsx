@@ -5,6 +5,9 @@ import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRig
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { db } from '../firebase.config';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+
+
 
 function SignUp() {
 
@@ -28,6 +31,8 @@ function SignUp() {
     }))
   }
 
+
+  //registering user
   const onSubmit = async (e) => {
     e.preventDefault()
 
@@ -44,6 +49,13 @@ function SignUp() {
       updateProfile(auth.currentUser, {
         displayName: name,
       })
+
+      //adding users to db
+      const formDataCopy = { ...formData }
+      delete formDataCopy.password
+      formDataCopy.timestamo = serverTimestamp()
+
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
 
       navigate('/')
     } catch (error) {
