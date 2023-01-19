@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { collection, getDocs, query, where, orderBy, limit, startAfter } from 'firebase/firestore';
+// import { useParams } from 'react-router-dom';
+import { collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import Spinner from '../components/Spinner';
@@ -13,7 +13,7 @@ function Offers() {
     const [ listings, setListings ] = useState(null)
     const [ loading, setLoading ] = useState(true)
 
-    const params = useParams()
+    // const params = useParams()
 
     //fetching listing from firebase
     useEffect(() => {
