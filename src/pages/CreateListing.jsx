@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import {toast} from 'react-toastify';
 
 function CreateListing() {
 
@@ -53,8 +54,41 @@ function CreateListing() {
       return <Spinner />
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
       e.preventDefault()
+
+      setLoading(true)
+
+      if(discountedPrice >= regularPrice) {
+        setLoading(false)
+        toast.error('Dicounted price needs to be less than regular price')
+        return
+      }
+
+      if(images.length >6) {
+        setLoading(false)
+        toast.error('Max 6 images')
+        return
+      }
+
+      let geolocation = {}
+      let location
+
+      if (geolocationEnabled) {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCMES5AG6PFhMpGx6VtDW13Dn_IKpyqtcI`
+          )
+
+          const data = await response.json()
+
+          console.log(data)
+      } else {
+        geolocation.lat = latitude
+        geolocation.lng = longitude
+        location = address
+      }
+
+      setLoading(false)
     }
 
     const onMutate = (e) => {
