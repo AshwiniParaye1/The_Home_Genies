@@ -76,12 +76,37 @@ function CreateListing() {
 
       if (geolocationEnabled) {
         const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCMES5AG6PFhMpGx6VtDW13Dn_IKpyqtcI`
+          // `https://www.openstreetmap.org/#map=12/19.6057/75.5557&layers=NDG/json?address=${address}`
+
+          // `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCMES5AG6PFhMpGx6VtDW13Dn_IKpyqtcI`
+
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?&access_token=${process.env.REACT_APP_GEOCODE_API_KEY}`
+
+          // `https://api.maptiler.com/geocoding/${address}.json?key=CReK3f0eEJ9td7JNOTrV`
+
+
           )
 
           const data = await response.json()
 
-          console.log(data)
+          //fetching lat and long through address and validating the correct address
+
+          // geolocation.lat = data.features[0]?.geometry.coordinates.lat ?? 0
+
+          // geolocation.lng = data.features[0]?.geometry.coordinates.lng ?? 0
+
+          // location = data.features[] ? undefined : data.features[0]?.geometry.place_name
+
+
+          // if(location === undefined || location.includes('undefined')) {
+          //   setLoading(false)
+          //   toast.error('Please enter a correct address')
+          //   return
+          // }
+
+          
+          // console.log(location)
+          console.log(data);
       } else {
         geolocation.lat = latitude
         geolocation.lng = longitude
