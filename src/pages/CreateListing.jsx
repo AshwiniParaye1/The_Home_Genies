@@ -95,11 +95,11 @@ function CreateListing() {
 
           //fetching lat and long through address and validating the correct address
 
-          // geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
+          geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
 
-          // geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
+          geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
 
-          // location = data.status === 'ZERO_RESULTS' ? undefined : data.results[0]?.formatted_address
+          location = data.status === 'ZERO_RESULTS' ? undefined : data.results[0]?.formatted_address
 
 
           // if(location === undefined || location.includes('undefined')) {
@@ -172,13 +172,13 @@ function CreateListing() {
 
       delete formDataCopy.images
       delete formDataCopy.address
-      // location && (formDataCopy.location = location)
+      location && (formDataCopy.location = location)
       !formDataCopy.offer && delete formDataCopy.discountedPrice
 
       const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
       setLoading(false)
       toast.success('Listing saved')
-      // navigate(`/category/${formDataCopy.type}/${docRef.id}`)
+      navigate(`/category/${formDataCopy.type}/${docRef.id}`)
 
     }
 
@@ -211,12 +211,12 @@ function CreateListing() {
 
 
   return (
-<div className='profile'>
+    <div className='profile'>
       <header>
         <p className='pageHeader'>Create a Listing</p>
       </header>
 
-      <main>
+      <main >
         <form onSubmit={onSubmit}>
           <label className='formLabel'>Sell / Rent</label>
           <div className='formButtons'>
