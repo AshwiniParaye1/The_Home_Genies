@@ -4,6 +4,9 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import {toast} from 'react-toastify';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db } from '../firebase.config';
+import { v4 as uuid4 } from 'uuid';
 
 function CreateListing() {
 
@@ -78,9 +81,9 @@ function CreateListing() {
         const response = await fetch(
           // `https://www.openstreetmap.org/#map=12/19.6057/75.5557&layers=NDG/json?address=${address}`
 
-          // `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCMES5AG6PFhMpGx6VtDW13Dn_IKpyqtcI`
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
 
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?&access_token=${process.env.REACT_APP_GEOCODE_API_KEY}`
+          // `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?&access_token=${process.env.REACT_APP_GEOCODE_API_KEY}`
 
           // `https://api.maptiler.com/geocoding/${address}.json?key=CReK3f0eEJ9td7JNOTrV`
 
@@ -91,9 +94,9 @@ function CreateListing() {
 
           //fetching lat and long through address and validating the correct address
 
-          // geolocation.lat = data.features[0]?.geometry.coordinates.lat ?? 0
+          // geolocation.lat = data.results[0]?.geometry.coordinates.lat ?? 0
 
-          // geolocation.lng = data.features[0]?.geometry.coordinates.lng ?? 0
+          // geolocation.lng = data.results[0]?.geometry.coordinates.lng ?? 0
 
           // location = data.features[] ? undefined : data.features[0]?.geometry.place_name
 
@@ -112,6 +115,54 @@ function CreateListing() {
         geolocation.lng = longitude
         location = address
       }
+
+      //store images in firebase
+      const storeImage = async (image) => {
+        return new Promise((resolve, reject) => {
+          const storage = getStorage()
+          const fileName = `${auth.currentUser.uid}-${image.name}-${uuid4()}`
+
+          const storageRef = ref(storage, 'images/' + fileName)
+
+          const uploadTask = uploadBytesResumable(storageRef, image);
+
+          uploadTask.on('state_changed', 
+            (snapshot) => {
+              
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case 'paused':
+                  console.log('Upload is paused');
+                  break;
+                case 'running':
+                  console.log('Upload is running');
+                  break;
+              }
+            }, 
+            (error) => {
+              reject(error)
+            }, 
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                resolve(downloadURL);
+              });
+            }
+          );
+
+
+        })
+      }
+
+      const imgUrls = await Promise.all(
+        [ ...images ].map((image) => storeImage(image))
+      ).catch(()=> {
+        setLoading(false)
+        toast.error('Images not Uploaded')
+        return
+      })
+
+      console.log(imgUrls)
 
       setLoading(false)
     }
