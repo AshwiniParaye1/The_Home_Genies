@@ -6,7 +6,8 @@ import Spinner from '../components/Spinner';
 import {toast} from 'react-toastify';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { db } from '../firebase.config';
-import { v4 as uuid4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 function CreateListing() {
 
@@ -94,11 +95,11 @@ function CreateListing() {
 
           //fetching lat and long through address and validating the correct address
 
-          // geolocation.lat = data.results[0]?.geometry.coordinates.lat ?? 0
+          // geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
 
-          // geolocation.lng = data.results[0]?.geometry.coordinates.lng ?? 0
+          // geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
 
-          // location = data.features[] ? undefined : data.features[0]?.geometry.place_name
+          // location = data.status === 'ZERO_RESULTS' ? undefined : data.results[0]?.formatted_address
 
 
           // if(location === undefined || location.includes('undefined')) {
@@ -120,7 +121,7 @@ function CreateListing() {
       const storeImage = async (image) => {
         return new Promise((resolve, reject) => {
           const storage = getStorage()
-          const fileName = `${auth.currentUser.uid}-${image.name}-${uuid4()}`
+          const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`
 
           const storageRef = ref(storage, 'images/' + fileName)
 
@@ -154,17 +155,31 @@ function CreateListing() {
         })
       }
 
-      const imgUrls = await Promise.all(
-        [ ...images ].map((image) => storeImage(image))
+      const imageUrls = await Promise.all(
+        [...images].map((image) => storeImage(image))
       ).catch(()=> {
         setLoading(false)
-        toast.error('Images not Uploaded')
+        toast.error('Image size should be less than 1mb')
         return
       })
 
-      console.log(imgUrls)
+      const formDataCopy = {
+        ...formData,
+        imageUrls,
+        geolocation,
+        timestamp: serverTimestamp()
+      }
 
+      delete formDataCopy.images
+      delete formDataCopy.address
+      // location && (formDataCopy.location = location)
+      !formDataCopy.offer && delete formDataCopy.discountedPrice
+
+      const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
       setLoading(false)
+      toast.success('Listing saved')
+      // navigate(`/category/${formDataCopy.type}/${docRef.id}`)
+
     }
 
     const onMutate = (e) => {
