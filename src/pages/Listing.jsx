@@ -36,7 +36,21 @@ function Listing() {
    
 
   return (
-    <div>Listing</div>
+  <main>
+    {/* SLIDER */}
+
+    <div className="shareIconDiv" onClick={ () =>{
+        //copy to clipboard
+        navigator.clipboard.writeText(window.location.href)
+        setShareLinkCopied(true)
+
+        setTimeout(() => {
+            setShareLinkCopied(false)
+        }, 2000)
+    } }>
+        <img src={shareIcon} alt='' />
+    </div>
+  </main>
   )
 }
 
