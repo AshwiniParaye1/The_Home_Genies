@@ -10,12 +10,16 @@ function Contact() {
   // eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const params = useParams()
+  const params = useParams(  )
+
+  console.log('params',params);
 
   useEffect(() => {
     const getLandlord = async () => {
-      const docRef = doc(db, 'users', params.landlordId)
+       
+     const docRef = doc(db, 'users', params.landlordId)
       const docSnap = await getDoc(docRef)
+      console.log(docRef);
 
       if (docSnap.exists()) {
         setLandlord(docSnap.data())

@@ -16,6 +16,8 @@ function Listing() {
 
     const navigate = useNavigate()
     const params = useParams()
+    console.log("params", params)
+
     const auth = getAuth()
 
     useEffect(() => {
@@ -24,7 +26,7 @@ function Listing() {
             const docSnap = await getDoc(docRef)
 
             if(docSnap.exists()) {
-                console.log(docSnap.data());
+                console.log("------",docSnap.data());
                 setListing(docSnap.data())
                 setLoading(false)
             }
@@ -32,6 +34,8 @@ function Listing() {
 
         fetchListing()
     }, [ navigate, params.listingId ])
+
+    console.log('listing', listing)
 
    if(loading) {
     return <Spinner />
@@ -82,8 +86,8 @@ function Listing() {
 
         {/* map */}
 
-        {auth.currentUser?.uid !== listing.userRef && (
-            <Link to={`/contact/${listing.userRef}?listingName=
+        {auth.currentUser?.uid !== listing.useRef && (
+            <Link to={`/contact/${listing.useRef}?listingName=
             ${listing.name} `} className='primaryButton'>
             Contact Landlord
             </Link>
