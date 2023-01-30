@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { doc, getDocs } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { toast } from 'react-toastify'
 
@@ -18,7 +18,7 @@ function Contact() {
     const getLandlord = async () => {
        
      const docRef = doc(db, 'users', params.landlordId)
-      const docSnap = await getDocs(docRef)
+      const docSnap = await getDoc(docRef)
       console.log(docRef);
 
       if (docSnap.exists()) {

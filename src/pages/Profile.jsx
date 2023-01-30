@@ -6,6 +6,7 @@ import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg';
 import homeIcon from '../assets/svg/homeIcon.svg';
+import ListingItem from '../components/ListingItem';
 
 
 
@@ -136,6 +137,18 @@ function Profile() {
         <p>Sell or rent your home</p>
         <img src={arrowRight} alt='arrow right' />
       </Link>
+
+
+      {!loading && listings?.length > 0 && (
+        <>
+        <p className="listingText">Your Listings</p>
+        <ul className="listingsList">
+          {listings.map((listing) => (
+            <ListingItem key={listing.id} listing={listing.data} id={listing.id} />
+          ))}
+        </ul>
+        </>
+      )}
     </main>
   </div>
 }
