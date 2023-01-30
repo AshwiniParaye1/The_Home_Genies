@@ -31,7 +31,7 @@ function Listing() {
             const docSnap = await getDoc(docRef)
 
             if(docSnap.exists()) {
-                console.log("------",docSnap.data());
+                console.log("------", docSnap.data());
                 setListing(docSnap.data())
                 setLoading(false)
             }
@@ -41,6 +41,7 @@ function Listing() {
     }, [ navigate, params.listingId ])
 
     console.log('listing', listing)
+
 
    if(loading) {
     return <Spinner />

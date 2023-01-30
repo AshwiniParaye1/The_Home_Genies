@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation,useNavigate } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, getDocs, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
 import googleIcon from '../assets/svg/googleIcon.svg';
@@ -21,7 +21,7 @@ function OAuth() {
 
             //check for user if user already present in db or not
             const docRef = doc(db, 'users', user.uid)
-            const docSnap = await getDoc(docRef)
+            const docSnap = await getDocs(docRef)
 
             //if user, doesn't exist, create user
             if(!docSnap.exists()) {

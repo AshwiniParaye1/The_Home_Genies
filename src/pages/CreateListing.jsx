@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, userRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
@@ -35,14 +35,14 @@ function CreateListing() {
 
     const auth = getAuth()
     const navigate = useNavigate()
-    const isMounted = useRef(true)
+    const isMounted = userRef(true)
 
 
     useEffect(() => {
       if(isMounted){
         onAuthStateChanged(auth, (user) => {
           if (user) {
-            setFormData({ ...formData, useRef: user.uid })
+            setFormData({ ...formData, userRef: user.uid })
           } else {
             navigate('/sign-in')
           }
@@ -248,7 +248,7 @@ function CreateListing() {
             value={name}
             onChange={onMutate}
             maxLength='32'
-            minLength='10'
+            minLength='5'
             required
           />
 
