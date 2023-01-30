@@ -35,6 +35,7 @@ useEffect(() => {
             })
         })
 
+        console.log("slider--explore--data", listings);
         setListings(listings)
         setLoading(false)
     }
@@ -42,10 +43,39 @@ useEffect(() => {
  
 }, [])
 
+if (loading) {
+    return <Spinner />
+}
 
-
-  return (
-    <div>Slider</div>
+  return listings && (
+    <>
+        <p className="exploreHeading">Recommended</p>
+        <Swiper slidesPerView={1} pagination={{ clickable: true }}
+        onSwiper={(swiper) => console.log("swiper--explore", swiper)}
+        >
+          {listings.map(({ data, id }) => (
+            <SwiperSlide
+              key={id}
+              onClick={() => navigate(`/category/${data.type}/${id}`)}
+            >
+              <div
+                style={{
+                  background: `url(${data.imageUrls[0]}) center no-repeat`,
+                  backgroundSize: 'cover',
+                  height: '350px'
+                }}
+                className='swiperSlideDiv'
+              >
+                <p className='swiperSlideText'>{data.name}</p>
+                <p className='swiperSlidePrice'>
+                  ${data.discountedPrice ?? data.regularPrice}{' '}
+                  {data.type === 'rent' && '/ month'}
+                </p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+    </>
   )
 }
 
