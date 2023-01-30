@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg';
 import homeIcon from '../assets/svg/homeIcon.svg';
 import ListingItem from '../components/ListingItem';
+import { async } from '@firebase/util';
 
 
 
@@ -95,6 +96,24 @@ function Profile() {
     }))
   }
 
+   const onDelete = async (listingId) => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      await deleteDoc(doc(db, 'listings', listingId))
+      const updatedListings = listings.filter(
+        (listing) => listing.id !== listingId
+      )
+        
+      
+      setListings(updatedListings)
+      toast.success('Successfully deleted listing')
+      
+      console.log("-----",deleteDoc)
+    }
+   
+  }
+
+
+
   return <div className='profile'>
     <header className='profileHeader'>
       <p className='pageHeader'>My Profile</p>
@@ -139,16 +158,22 @@ function Profile() {
       </Link>
 
 
-      {!loading && listings?.length > 0 && (
-        <>
-        <p className="listingText">Your Listings</p>
-        <ul className="listingsList">
-          {listings.map((listing) => (
-            <ListingItem key={listing.id} listing={listing.data} id={listing.id} />
-          ))}
-        </ul>
-        </>
-      )}
+        {!loading && listings?.length > 0 && (
+          <>
+            <p className='listingText'>Your Listings</p>
+            <ul className='listingsList'>
+              {listings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.data}
+                  id={listing.id}
+                  onDelete={() => onDelete(listing.id)}
+                  // onEdit={() => onEdit(listing.id)}
+                />
+              ))}
+            </ul>
+          </>
+        )}
     </main>
   </div>
 }
