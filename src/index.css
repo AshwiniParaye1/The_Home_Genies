@@ -313,13 +313,13 @@ button {
   margin-bottom: 3rem;
 }
 
-@media (min-width: 1217px) {
+@media (min-width: 300px) {
   .explore {
     margin-bottom: 10rem;
   }
 }
 
-@media (max-height: 536px) {
+@media (max-height: 1217px) {
   .explore {
     margin-bottom: 10rem;
   }
