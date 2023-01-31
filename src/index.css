@@ -115,7 +115,7 @@ button {
   }
 }
 
-@media (max-width: 1024px) and (min-width: 400px) {
+@media (max-width: 1024px) and (min-width: 300px) {
 
   .pageContainer,
   .offers,
@@ -124,8 +124,8 @@ button {
   .category,
   .explore {
     margin: 1.5rem;
-    /* padding-bottom: 5rem; */
-    /* overflow: hidden; */
+    /* padding-bottom: 3rem; */
+    overflow: hidden;
   }
 }
 
