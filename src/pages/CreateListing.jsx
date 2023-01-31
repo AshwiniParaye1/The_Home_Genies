@@ -248,7 +248,7 @@ function CreateListing() {
             value={name}
             onChange={onMutate}
             maxLength='32'
-            minLength='5'
+            minLength='3'
             required
           />
 
