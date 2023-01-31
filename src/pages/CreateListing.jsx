@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, userRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
@@ -35,14 +35,14 @@ function CreateListing() {
 
     const auth = getAuth()
     const navigate = useNavigate()
-    const isMounted = userRef(true)
+    const isMounted = useRef(true)
 
 
     useEffect(() => {
       if(isMounted){
         onAuthStateChanged(auth, (user) => {
           if (user) {
-            setFormData({ ...formData, userRef: user.uid })
+            setFormData({ ...formData, useRef: user.uid })
           } else {
             navigate('/sign-in')
           }
@@ -159,7 +159,7 @@ function CreateListing() {
         [...images].map((image) => storeImage(image))
       ).catch(()=> {
         setLoading(false)
-        toast.error('Image size should be less than 1mb')
+        toast.error('Something went wrong')
         return
       })
 
