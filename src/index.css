@@ -1,17 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
+
 * {
   box-sizing: border-box;
 }
 
 html::-webkit-scrollbar {
   display: none;
+  overflow: auto;
 }
+
 
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #f2f4f8;
   margin: 0;
   box-sizing: border-box;
+  /* height: 100%;
+  width: 100%; */
+  /* overflow: auto; */
 }
 
 a {
@@ -41,7 +47,9 @@ button {
   padding: 0 3rem;
   font-size: 1rem;
 }
+
 @media (min-width: 1100px) {
+
   .input,
   .passwordInput,
   .emailInput,
@@ -94,7 +102,9 @@ button {
 .explore {
   margin: 1rem;
 }
+
 @media (min-width: 1024px) {
+
   .pageContainer,
   .offers,
   .profile,
@@ -102,10 +112,20 @@ button {
   .category,
   .explore {
     margin: 3rem;
-    width: 100%;
-    height: 100%;
-    /* padding-bottom: 3rem; */
-    /* background-color: red; */
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 300px) {
+
+  .pageContainer,
+  .offers,
+  .profile,
+  .listingDetails,
+  .category,
+  .explore {
+    margin: 3rem;
+    padding-bottom: 5rem;
+    overflow: hidden;
   }
 }
 
@@ -120,10 +140,9 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
-.pageContainer{
+.pageContainer {
   margin-bottom: 10rem;
 }
 
@@ -135,10 +154,12 @@ button {
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -190,6 +211,7 @@ button {
   font-weight: 600;
   color: #8f8f8f;
 }
+
 .navbarListItemNameActive {
   color: #2c2c2c;
 }
@@ -226,7 +248,6 @@ button {
   color: #00cc66;
   font-weight: 600;
   text-align: right;
-  margin-right: 0.5rem;
 }
 
 .signInBar,
@@ -244,7 +265,9 @@ button {
 .signUpText {
   cursor: pointer;
 }
+
 @media (min-width: 1024px) {
+
   .signInBar,
   .signUpBar {
     justify-content: start;
@@ -267,7 +290,9 @@ button {
   background-color: #00cc66;
   border-radius: 50%;
 }
+
 @media (min-width: 1024px) {
+
   .signInButton,
   .signUpButton {
     margin-left: 3rem;
@@ -287,7 +312,7 @@ button {
   justify-content: center;
   align-items: center;
   padding: 0.75rem;
-  margin: 0.5rem;
+  margin: 1.5rem;
   width: 3rem;
   height: 3rem;
   background-color: #ffffff;
@@ -297,7 +322,6 @@ button {
 
 .socialIconImg {
   width: 100%;
-  
 }
 
 .registerLink {
@@ -313,6 +337,7 @@ button {
     margin-bottom: 10rem;
   }
 }
+
 @media (max-height: 536px) {
   .explore {
     margin-bottom: 10rem;
@@ -331,7 +356,6 @@ button {
 .swiper-container {
   min-height: 225px;
   height: 23vw;
-  
 }
 
 .swiper-pagination-bullet-active {
@@ -342,15 +366,11 @@ button {
   position: relative;
   width: 100%;
   height: 100%;
-  
 }
 
 .swiperSlideImg {
   width: 100%;
-  height: 100;
   object-fit: cover;
- 
-  
 }
 
 .swiperSlideText {
@@ -364,6 +384,7 @@ button {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 0.5rem;
 }
+
 @media (min-width: 1024px) {
   .swiperSlideText {
     font-size: 1.75rem;
@@ -381,6 +402,7 @@ button {
   padding: 0.25rem 0.5rem;
   border-radius: 1rem;
 }
+
 @media (min-width: 1024px) {
   .swiperSlidePrice {
     font-size: 1.25rem;
@@ -391,6 +413,7 @@ button {
   display: flex;
   justify-content: space-between;
 }
+
 .exploreCategories a {
   width: 48%;
 }
@@ -420,7 +443,6 @@ button {
 .categoryListing {
   display: flex;
   justify-content: space-between;
-  
   align-items: center;
   margin-bottom: 1rem;
   position: relative;
@@ -436,6 +458,7 @@ button {
   border-radius: 1.5rem;
   object-fit: cover;
 }
+
 @media (min-width: 1024px) {
   .categoryListingImg {
     width: 19%;
@@ -446,6 +469,7 @@ button {
 .categoryListingDetails {
   width: 65%;
 }
+
 @media (min-width: 1024px) {
   .categoryListingDetails {
     width: 79%;
@@ -555,6 +579,7 @@ button {
   padding: 0;
   list-style-type: none;
 }
+
 .listingDetailsList li {
   margin: 0.3rem 0;
   font-weight: 500;
@@ -573,6 +598,7 @@ button {
   overflow-x: hidden;
   margin-bottom: 3rem;
 }
+
 @media (min-width: 1024px) {
   .leafletContainer {
     height: 400px;
@@ -684,10 +710,11 @@ button {
 .profileEmailActive,
 .profileNameActive {
   all: unset;
-  margin: 0.3  rem 0;
+  margin: 0.3rem 0;
   font-weight: 600;
   width: 100%;
 }
+
 .profileNameActive {
   background-color: rgba(44, 44, 44, 0.1);
 }
@@ -698,6 +725,7 @@ button {
 .profileEmailActive {
   font-weight: 500;
 }
+
 .profileEmailActive {
   background-color: rgba(44, 44, 44, 0.1);
 }
@@ -755,6 +783,7 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 .formButtonActive {
   background-color: #00cc66;
   color: #ffffff;
@@ -773,6 +802,7 @@ button {
   outline: none;
   font-family: 'Montserrat', sans-serif;
 }
+
 .formInputSmall,
 .formInputFile {
   margin-right: 3rem;
@@ -810,6 +840,7 @@ button {
 .formInputFile {
   width: 100%;
 }
+
 .formInputFile::-webkit-file-upload-button {
   background-color: #00cc66;
   border: none;
