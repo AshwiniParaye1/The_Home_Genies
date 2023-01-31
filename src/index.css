@@ -102,6 +102,10 @@ button {
   .category,
   .explore {
     margin: 3rem;
+    width: 100%;
+    height: 100%;
+    /* padding-bottom: 3rem; */
+    /* background-color: red; */
   }
 }
 
