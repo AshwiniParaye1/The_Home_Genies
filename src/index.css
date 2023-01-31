@@ -123,9 +123,9 @@ button {
   .listingDetails,
   .category,
   .explore {
-    margin: 1.5rem;
-    padding-bottom: 5rem;
-    overflow: hidden;
+    margin: 3rem;
+    /* padding-bottom: 5rem; */
+    /* overflow: hidden; */
   }
 }
 
