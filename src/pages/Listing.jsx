@@ -110,10 +110,10 @@ function Listing() {
             <li>{listing.furnished && 'Furnished'}</li>
         </ul>
 
-        <p className="listingLocationTitle">Location</p>
+        {/* <p className="listingLocationTitle">Location</p> */}
 
             {/* MAP */}
-        <div className='leafletContainer'>
+        {/* <div className='leafletContainer'>
           <MapContainer
             style={{ height: '100%', width: '100%' }}
             // center={[listing.geolocation, listing.geolocation]}
@@ -125,14 +125,15 @@ function Listing() {
               url='https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
             />
 
-            {/* <Marker
+            <Marker
               position={[listing.geolocation.lat, listing.geolocation.lng]}
             > 
                  <Popup>{listing.location}</Popup>
-            </Marker> */}
+            </Marker>
 
             </MapContainer>
-        </div>
+        </div> */}
+
 
         {auth.currentUser?.uid !== listing.useRef && (
             <Link to={`/contact/${listing.useRef}?listingName=

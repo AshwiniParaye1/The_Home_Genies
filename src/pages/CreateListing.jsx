@@ -80,41 +80,42 @@ function CreateListing() {
 
       if (geolocationEnabled) {
         const response = await fetch(
-          // `https://www.openstreetmap.org/#map=12/19.6057/75.5557&layers=NDG/json?address=${address}`
-
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
-
-          // `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?&access_token=${process.env.REACT_APP_GEOCODE_API_KEY}`
-
-          // `https://api.maptiler.com/geocoding/${address}.json?key=CReK3f0eEJ9td7JNOTrV`
+         
+          `https://api.geoapify.com/v1/geocode/search?text=${address}&format=json&apiKey=${process.env.REACT_APP_GEOCODE_API_KEY}`
 
 
-          )
+         )
 
           const data = await response.json()
 
           //fetching lat and long through address and validating the correct address
 
-          // geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
-
-          // geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
-
-          // location = data.status === 'ZERO_RESULTS' ? undefined : data.results[0]?.formatted_address
-
-
-          // if(location === undefined || location.includes('undefined')) {
-          //   setLoading(false)
-          //   toast.error('Please enter a correct address')
-          //   return
-          // }
-
+          // geolocation.lat = data.results[0]?.datasource.lat ?? 0
           
-          // console.log(location)
+          
+          // geolocation.lng = data.results[0]?.datasource.lon ?? 0
+          
+          console.log('===',data.results[0])
+
+          location = data.length === 0 ? undefined : data.results[0]?.formatted
+
+
+          if(location === undefined || location.includes('undefined')) {
+            setLoading(false)
+            toast.error('Please enter a correct address')
+            return
+          }
+
+          console.log("geolocation---lat====", geolocation.lat)
+          console.log("geolocation---lng====", geolocation.lng)
+       
           console.log(data);
       } else {
         geolocation.lat = latitude
         geolocation.lng = longitude
         location = address
+
+         console.log("geolocation-", geolocation,location)
       }
 
       //store images in firebase
@@ -131,7 +132,7 @@ function CreateListing() {
             (snapshot) => {
               
               const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log('Upload is ' + progress + '% done');
+              // console.log('Upload is ' + progress + '% done');
               switch (snapshot.state) {
                 case 'paused':
                   console.log('Upload is paused');
